@@ -3,9 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title} My favorite hobby is to watch anime series
-  button(type="button",class = "btn-success") press me for contents
-  div(id="faster") Increase the speed
   button(onclick="goFaster()") Click me to go faster
+  br 
+  br
+  div(id="faster") Increase the speed
   script.
       var mph = 20;
       var change = 1;
