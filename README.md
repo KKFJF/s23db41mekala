@@ -3,7 +3,7 @@
 # f23wb41mekala
 (hosted at)[https://f23wb41mekala.onrender.com]
 
-**Class: widget**
+**Class: Widget**
 
 ***class Attributes: name(String) description(String) price(number)***
 
