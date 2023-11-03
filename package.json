@@ -17,7 +17,7 @@
     "morgan": "^1.10.0",
     "pug": "^3.0.2"
   },
-  "description": "Assignment10 webapps",
+  "description": "Assignment11 webapps",
   "main": "app.js",
   "author": "S565441",
   "license": "ISC"
