@@ -23,8 +23,8 @@ exports.widget_create_post = async function(req, res) {
     // and require that it be a json object
     // {"costume_type":"goat", "cost":12, "size":"large"}
     document.name = req.body.name;
-    document.color = req.body.color;
-    document.prize = req.body.price;
+    document.description = req.body.description;
+    document.price = req.body.price;
     try{
     let result = await document.save();
     res.send(result);
@@ -48,9 +48,9 @@ res.send('NOT IMPLEMENTED: Costume update PUT' + req.params.id);
 exports.widget_view_all_Page = async function(req, res) {
     try{
     console.log("IN")
-    thefruits = await Fruit.find();
+    thewidgets = await widget.find();
     console.log(thewidgets)
-    res.render('fruits', { title: 'Search Results - widgets', results: thewidgets });
+    res.render('widgets', { title: 'Search Results - widgets', results: thewidgets });
     }
     catch(err){
     //res.status(500);
