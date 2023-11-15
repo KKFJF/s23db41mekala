@@ -48,9 +48,22 @@ exports.widget_create_post = async function(req, res) {
     } ;
 };
 // Handle widget delete form on DELETE.
-exports.widget_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: widget delete DELETE ' + req.params.id);
+//exports.widget_delete = function(req, res) {
+//res.send('NOT IMPLEMENTED: widget delete DELETE ' + req.params.id);
+//};
+//Handle widget delete on DELETE.
+exports.widget_delete = async function(req, res) {
+console.log("delete " + req.params.id)
+try {
+result = await widget.findByIdAndDelete( req.params.id)
+console.log("Removed " + result)
+res.send(result)
+} catch (err) {
+res.status(500)
+res.send(`{"error": Error deleting ${err}}`);
+}
 };
+
 // Handle widget update form on PUT.
 //exports.widget_update_put = function(req, res) {
 //res.send('NOT IMPLEMENTED: widget update PUT' + req.params.id);
@@ -63,7 +76,7 @@ ${JSON.stringify(req.body)}`)
 try {
 let toUpdate = await widget.findById( req.params.id)
 // Do updates of properties
-if(req.body.costume_type)
+if(req.body.widget)
 toUpdate.name = req.body.name;
 if(req.body.price) toUpdate.price = req.body.price;
 if(req.body.description) toUpdate.description = req.body.description;
@@ -91,3 +104,31 @@ exports.widget_view_all_Page = async function(req, res) {
     res.send(`{"error": ${err}}`);
     }
 }
+
+// Handle a show one view with id specified by query
+exports.widget_view_one_Page = async function(req, res) {
+console.log("single view for id " + req.query.id)
+try{
+result = await widget.findById( req.query.id)
+res.render('widgetdetail',
+{ title: 'widget Detail', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.widget_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('widgetcreate', { title: 'widget Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
