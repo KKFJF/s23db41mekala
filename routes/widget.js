@@ -12,6 +12,10 @@ router.get('/create', widget_controlers.widget_create_Page);
 /* GET create update page */
 router.get('/update', widget_controlers.widget_update_Page);
 
+/* GET delete costume page */
+router.get('/delete', widget_controlers.widget_delete_Page);
+
+
 
 module.exports = router;
 

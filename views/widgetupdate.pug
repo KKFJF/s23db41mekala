@@ -8,8 +8,8 @@ block content
   else
     - let widgetid = toShow._id
     - let name = toShow.name
-    - let price = toShow.price
     - let description = toShow.description
+    - let price = toShow.price
 
     div.row(class='mb-2')
       div.mr-1 ID is
@@ -18,10 +18,10 @@ block content
     - let actionid = "/resource/widget/" + widgetid
     form(id='widgetForm', action=actionid, method="PUT")
       div.form-group
-        label.widgetAttr(for='name') widget name
+        label.widgetAttr(for='name') widget Name
         input#name(type='text', name='name', value=name)
       div.form-group
-        label.widgetAttr(for='description') description
+        label.widgetAttr(for='description') widget description
         input#description(type='text', name='description', value=description)
       div.form-group
         label.widgetAttr(for='price') price
