@@ -10,6 +10,52 @@ exports.widget_list = async function(req, res) {
         res.send(`{"error": ${err}}`);
         } 
 };
+
+// Handle a show one view with id specified by query
+exports.widget_view_one_Page = async function(req, res) {
+console.log("single view for id " + req.query.id)
+try{
+result = await widget.findById( req.query.id)
+res.render('widgetdetail',
+{ title: 'widget Detail', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.widget_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('widgetcreate', { title: 'widget Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.widget_update_Page = async function(req, res) {
+console.log("update view for item "+req.query.id)
+try{
+let result = await widget.findById(req.query.id)
+res.render('widgetupdate', { title: 'widget Update', toShow: result });
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+    
+    
 // for a specific widget.
 //exports.widget_detail = function(req, res) {
 // res.send('NOT IMPLEMENTED: widget detail: ' + req.params.id);
@@ -105,30 +151,3 @@ exports.widget_view_all_Page = async function(req, res) {
     }
 }
 
-// Handle a show one view with id specified by query
-exports.widget_view_one_Page = async function(req, res) {
-console.log("single view for id " + req.query.id)
-try{
-result = await widget.findById( req.query.id)
-res.render('widgetdetail',
-{ title: 'widget Detail', toShow: result });
-}
-catch(err){
-res.status(500)
-res.send(`{'error': '${err}'}`);
-}
-};
-
-// Handle building the view for creating a costume.
-// No body, no in path parameter, no query.
-// Does not need to be async
-exports.widget_create_Page = function(req, res) {
-console.log("create view")
-try{
-res.render('widgetcreate', { title: 'widget Create'});
-}
-catch(err){
-res.status(500)
-res.send(`{'error': '${err}'}`);
-}
-};
