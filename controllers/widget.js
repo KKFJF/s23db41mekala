@@ -160,7 +160,7 @@ exports.widget_view_all_Page = async function(req, res) {
     console.log("IN")
     thewidgets = await widget.find();
     console.log(thewidgets)
-    res.render('widgets', { title: 'Search Results - widgets', results: thewidgets });
+    res.render('widget', { title: 'Search Results - widgets', results: thewidgets });
     }
     catch(err){
     //res.status(500);

@@ -5,15 +5,20 @@ block content
   - let results = [{ name: "iPhone X", price: 20.99, description: "High_dynamic" },{ name: "Amazon echo dot", price: 30.99, description: "connect to alexa" },{ name: "Apple Watch", price: 40.99, description: "allows users to accomplish" }]
   div.container-fluid
     div.row
-      each widget,index in results
-       div.col-sm-2(onclick=`buy(${index})`) #{widget.name}
-       div.col-sm-2(onclick=`buy(${index})`) #{widget.description}
-       div.col-sm-2(onclick=`buy(${index})`) #{widget.price}
-       br
-       hr
+      each widget, index in results
+        div.col-sm-2(onclick=`buy(${index})`) #{widget.name}
+        div.col-sm-2(onclick=`buy(${index})`) #{widget.description}
+        div.col-sm-2(onclick=`buy(${index})`) #{widget.price}
+        br
+        hr
+        - let destination = `dispatch("/widget/update?id=${widget._id}")`
+        button.btn(class="btn-primary ml-1", onclick=destination) Update
 
-  script. 
-      function buy(index)
-      {
-        alert(`you purchased Item ${index+1}`)
-      }
+  script.
+    function buy(index) {
+      alert(`you purchased Item ${index + 1}`)
+    }
+
+    function dispatch(path) {
+      window.location.href = path
+    }
