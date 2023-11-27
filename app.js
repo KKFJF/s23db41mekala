@@ -3,42 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
-
-require('dotenv').config();
-const connectionString =
-process.env.MONGO_CON
-mongoose = require('mongoose');
-mongoose.connect(connectionString);
-
-//Get the default connection
-var db = mongoose.connection;
-//Bind connection to error event
-db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
-db.once("open", function(){
-console.log("Connection to DB succeeded")});
-
-var widget = require("./models/widgetSchema");
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var widgetRouter = require('./routes/widget');
-var boardRouter = require('./routes/board');
-var chooseRouter = require('./routes/choose');
-var resourceRouter = require('./routes/resource');
-
-var app = express();
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
 //lab-13
 passport.use(new LocalStrategy(
@@ -59,6 +26,42 @@ passport.use(new LocalStrategy(
   })
   })
   )
+
+
+var widget = require("./models/widgetSchema");
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+var widgetRouter = require('./routes/widget');
+var boardRouter = require('./routes/board');
+var chooseRouter = require('./routes/choose');
+var resourceRouter = require('./routes/resource');
+
+var app = express();
+
+require('dotenv').config();
+const connectionString =
+process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connectionerror:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
   app.use(require('express-session')({
   secret: 'keyboard cat',
   resave: false,
@@ -74,6 +77,7 @@ var Account =require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
 passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
+
   
 
 app.use('/', indexRouter);
@@ -82,6 +86,7 @@ app.use('/widget', widgetRouter);
 app.use('/board', boardRouter);
 app.use('/choose',chooseRouter);
 app.use('/resource', resourceRouter);
+app
 
 // We can seed the collection if needed on
 
