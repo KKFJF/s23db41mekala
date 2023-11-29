@@ -2,6 +2,8 @@ extends layout
 
 block content
   h1= title
+  a(class="btn btn-success" href="/widget/create") Create
+  
   - let results = [{ name: "iPhone X", price: 20.99, description: "High_dynamic" },{ name: "Amazon echo dot", price: 30.99, description: "connect to alexa" },{ name: "Apple Watch", price: 40.99, description: "allows users to accomplish" }]
   div.container-fluid
     div.row
@@ -13,6 +15,8 @@ block content
         hr
         - let destination = `dispatch("/widget/update?id=${widget._id}")`
         button.btn(class="btn-primary ml-1", onclick=destination) Update
+        a(class="btn btn-danger" href=`/widget/delete?id=${widget._id}`) Delete
+        a(class="btn btn-warning" href=`/widget/deail?id=${widget._id}`) Detail 
 
   script.
     function buy(index) {
