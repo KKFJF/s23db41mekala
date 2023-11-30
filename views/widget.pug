@@ -2,27 +2,44 @@ extends layout
 
 block content
   h1= title
+  - let items = results
   a(class="btn btn-success" href="/widget/create") Create
-  
-  - let results = [{ name: "iPhone X", price: 20.99, description: "High_dynamic" },{ name: "Amazon echo dot", price: 30.99, description: "connect to alexa" },{ name: "Apple Watch", price: 40.99, description: "allows users to accomplish" }]
-  div.container-fluid
-    div.row
-      each widget, index in results
-        div.col-sm-2(onclick=`buy(${index})`) #{widget.name}
-        div.col-sm-2(onclick=`buy(${index})`) #{widget.description}
-        div.col-sm-2(onclick=`buy(${index})`) #{widget.price}
-        br
-        hr
-        - let destination = `dispatch("/widget/update?id=${widget._id}")`
-        button.btn(class="btn-primary ml-1", onclick=destination) Update
-        a(class="btn btn-danger" href=`/widget/delete?id=${widget._id}`) Delete
-        a(class="btn btn-warning" href=`/widget/deail?id=${widget._id}`) Detail 
+  div(class="container-fluid")
+    each widget, index in results
+      - let destination = `dispatch("/widget/update?id=${widget._id}")`
+      div(class="card m-1", onclick=`buy(${index})`)
+        div(class="card-body")
+          h5.card-title #{widget.name}
+          p.card-text #{widget.description}
+          p.card-text Price: #{widget.price}
+        div(class="card-footer")
+          button.btn.btn-primary.ml-1(onclick=destination) Update
+          a.btn.btn-danger(href=`/widget/delete?id=${widget._id}`) Delete
+          a.btn.btn-dark(href=`/widget/detail?id=${widget._id}`) Details
 
   script.
     function buy(index) {
-      alert(`you purchased Item ${index + 1}`)
+      alert(`You purchased item ${index + 1}`);
+    }
+    function dispatch(path) {
+      window.location.href = path;
     }
 
-    function dispatch(path) {
-      window.location.href = path
+  style.
+    /* Add your custom styles here */
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      transition: box-shadow 0.3s;
     }
+
+    .card:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-footer {
+      background-color: #f8f9fa;
+      border-top: 1px solid #ddd;
+    }
+
+    /* Add more styles as needed */
